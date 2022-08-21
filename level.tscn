@@ -1,0 +1,39 @@
+[gd_scene load_steps=6 format=3 uid="uid://3ovekprw4lpg"]
+
+[ext_resource type="Script" path="res://Player.gd" id="1_5okib"]
+[ext_resource type="Script" path="res://main.gd" id="1_17tqw"]
+
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_jldcg"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_lkvcj"]
+albedo_color = Color(0.580392, 0.0431373, 0.14902, 1)
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_tv0l4"]
+
+[node name="Level" type="Node3D"]
+script = ExtResource("1_17tqw")
+
+[node name="Ground" type="CSGBox3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.05, 0)
+use_collision = true
+size = Vector3(16, 0.1, 16)
+
+[node name="Player" type="CharacterBody3D" parent="."]
+script = ExtResource("1_5okib")
+metadata/_edit_group_ = true
+
+[node name="Body" type="MeshInstance3D" parent="Player"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+mesh = SubResource("CapsuleMesh_jldcg")
+surface_material_override/0 = SubResource("StandardMaterial3D_lkvcj")
+
+[node name="Eyes" type="MeshInstance3D" parent="Player"]
+transform = Transform3D(0.7, 0, 0, 0, -8.74228e-09, 0.3, 0, -0.2, -1.31134e-08, 0, 1.47907, -0.40413)
+mesh = SubResource("CylinderMesh_tv0l4")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(0.299922, -0.591375, 0.748547, -0.0282349, 0.778824, 0.626607, -0.953546, -0.209068, 0.216889, 8.98831, 7.09032, 3.61709)
+shadow_enabled = true
+
+[node name="Camera" type="Camera3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 0.741379, 0.671087, 0, -0.671087, 0.741379, 0, 10.5142, 10.6261)
