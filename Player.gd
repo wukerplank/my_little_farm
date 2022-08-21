@@ -1,6 +1,6 @@
 extends CharacterBody3D
 
-
+@onready var gun_controller = $GunController
 var speed = 5
 
 
@@ -25,3 +25,6 @@ func _process(delta):
 	velocity = velocity.normalized() * speed
 
 	move_and_slide()
+	
+	if Input.is_action_just_pressed("primary_action"):
+		gun_controller.shoot()

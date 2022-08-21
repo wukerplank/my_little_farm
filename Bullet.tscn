@@ -1,0 +1,19 @@
+[gd_scene load_steps=4 format=3 uid="uid://cev4gpe2f8e5n"]
+
+[ext_resource type="Script" path="res://Bullet.gd" id="1_3fhtl"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_4kwi5"]
+albedo_color = Color(1, 0.882667, 0.56, 1)
+metallic = 1.0
+metallic_specular = 1.0
+roughness = 0.1
+
+[sub_resource type="SphereMesh" id="SphereMesh_svlwn"]
+
+[node name="Bullet" type="Node3D"]
+script = ExtResource("1_3fhtl")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+transform = Transform3D(0.15, 0, 0, 0, 0.15, 0, 0, 0, 0.15, 0, 0, 0)
+material_override = SubResource("StandardMaterial3D_4kwi5")
+mesh = SubResource("SphereMesh_svlwn")
