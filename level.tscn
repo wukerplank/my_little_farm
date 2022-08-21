@@ -1,7 +1,9 @@
-[gd_scene load_steps=6 format=3 uid="uid://3ovekprw4lpg"]
+[gd_scene load_steps=7 format=3 uid="uid://3ovekprw4lpg"]
 
 [ext_resource type="Script" path="res://Player.gd" id="1_5okib"]
 [ext_resource type="Script" path="res://main.gd" id="1_17tqw"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_r6tvy"]
 
 [sub_resource type="CapsuleMesh" id="CapsuleMesh_jldcg"]
 
@@ -15,6 +17,7 @@ script = ExtResource("1_17tqw")
 
 [node name="Ground" type="CSGBox3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.05, 0)
+material_override = SubResource("StandardMaterial3D_r6tvy")
 use_collision = true
 size = Vector3(16, 0.1, 16)
 
@@ -33,6 +36,7 @@ mesh = SubResource("CylinderMesh_tv0l4")
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
 transform = Transform3D(0.299922, -0.591375, 0.748547, -0.0282349, 0.778824, 0.626607, -0.953546, -0.209068, 0.216889, 8.98831, 7.09032, 3.61709)
+light_color = Color(1, 0.904, 0.82, 1)
 shadow_enabled = true
 
 [node name="Camera" type="Camera3D" parent="."]
