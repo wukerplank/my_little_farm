@@ -1,0 +1,39 @@
+[gd_scene load_steps=8 format=3 uid="uid://3pyoddi7wvtl"]
+
+[ext_resource type="Script" path="res://Player.gd" id="1_q2qap"]
+[ext_resource type="Script" path="res://GunController.gd" id="2_qc5gf"]
+[ext_resource type="PackedScene" uid="uid://b5vmn0idjiehr" path="res://gun.tscn" id="3_uw2tg"]
+
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_jldcg"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_lkvcj"]
+albedo_color = Color(0.580392, 0.0431373, 0.14902, 1)
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_tv0l4"]
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_tsbte"]
+
+[node name="Player" type="CharacterBody3D"]
+script = ExtResource("1_q2qap")
+metadata/_edit_group_ = true
+
+[node name="Body" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+mesh = SubResource("CapsuleMesh_jldcg")
+surface_material_override/0 = SubResource("StandardMaterial3D_lkvcj")
+
+[node name="Eyes" type="MeshInstance3D" parent="Body"]
+transform = Transform3D(0.7, 0, 0, 0, -8.74228e-09, 0.3, 0, -0.2, -1.31134e-08, 0, 0.47907, -0.40413)
+mesh = SubResource("CylinderMesh_tv0l4")
+skeleton = NodePath("../..")
+
+[node name="Hand" type="Position3D" parent="Body"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.515615, 0, -0.282145)
+
+[node name="GunController" type="Node" parent="."]
+script = ExtResource("2_qc5gf")
+StartingWeapon = ExtResource("3_uw2tg")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+shape = SubResource("CapsuleShape3D_tsbte")

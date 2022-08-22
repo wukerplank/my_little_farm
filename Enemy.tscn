@@ -1,0 +1,46 @@
+[gd_scene load_steps=7 format=3 uid="uid://bnx21rfx2c026"]
+
+[ext_resource type="Script" path="res://Enemy.gd" id="1_ud0gt"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_mee1b"]
+albedo_color = Color(0.306446, 0.464897, 0.235137, 1)
+
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_w4tdc"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_odatn"]
+albedo_color = Color(0.580392, 0.0431373, 0.14902, 1)
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_mg60x"]
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_xvbfs"]
+
+[node name="Enemy" type="CharacterBody3D"]
+script = ExtResource("1_ud0gt")
+
+[node name="Body" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+material_override = SubResource("StandardMaterial3D_mee1b")
+mesh = SubResource("CapsuleMesh_w4tdc")
+surface_material_override/0 = SubResource("StandardMaterial3D_odatn")
+
+[node name="Eyes" type="MeshInstance3D" parent="Body"]
+transform = Transform3D(0.7, 0, 0, 0, -8.74228e-09, 0.3, 0, -0.2, -1.31134e-08, 0, 0.47907, -0.40413)
+mesh = SubResource("CylinderMesh_mg60x")
+skeleton = NodePath("../..")
+
+[node name="Hand" type="Position3D" parent="Body"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.515615, 0, -0.282145)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+shape = SubResource("CapsuleShape3D_xvbfs")
+
+[node name="NavigationAgent" type="NavigationAgent3D" parent="."]
+path_max_distance = 20.0
+avoidance_enabled = true
+
+[node name="Timer" type="Timer" parent="."]
+autostart = true
+
+[connection signal="velocity_computed" from="NavigationAgent" to="." method="_on_navigation_agent_velocity_computed"]
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]

@@ -1,4 +1,4 @@
-[gd_scene load_steps=4 format=3 uid="uid://cev4gpe2f8e5n"]
+[gd_scene load_steps=5 format=3 uid="uid://cev4gpe2f8e5n"]
 
 [ext_resource type="Script" path="res://Bullet.gd" id="1_3fhtl"]
 
@@ -10,6 +10,9 @@ roughness = 0.1
 
 [sub_resource type="SphereMesh" id="SphereMesh_svlwn"]
 
+[sub_resource type="SphereShape3D" id="SphereShape3D_66pw8"]
+radius = 0.0744295
+
 [node name="Bullet" type="Node3D"]
 script = ExtResource("1_3fhtl")
 
@@ -17,3 +20,10 @@ script = ExtResource("1_3fhtl")
 transform = Transform3D(0.15, 0, 0, 0, 0.15, 0, 0, 0, 0.15, 0, 0, 0)
 material_override = SubResource("StandardMaterial3D_4kwi5")
 mesh = SubResource("SphereMesh_svlwn")
+
+[node name="Area3D" type="Area3D" parent="."]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Area3D"]
+shape = SubResource("SphereShape3D_66pw8")
+
+[connection signal="body_entered" from="Area3D" to="." method="_on_area_3d_body_entered"]

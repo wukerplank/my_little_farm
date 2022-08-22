@@ -1,5 +1,7 @@
 extends Node3D
 
+@onready var player : Node3D = $Player
+
 
 var ray_origin = Vector3()
 var ray_target = Vector3()
@@ -30,4 +32,5 @@ func _physics_process(delta):
 	
 	if not intersection.is_empty():
 		var pos = intersection.position
-		$Player.look_at(pos, Vector3.UP)
+		var look_at_me = Vector3(pos.x, player.position.y ,pos.z)
+		player.look_at(look_at_me, Vector3.UP)
