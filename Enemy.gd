@@ -39,3 +39,7 @@ func update_path(target_position: Vector3):
 func _on_timer_timeout():
 #	print("Looking for player!")
 	update_path(player.global_transform.origin)
+
+
+func _on_stats_you_died_signal():
+	queue_free()

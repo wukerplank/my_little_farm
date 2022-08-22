@@ -1,6 +1,7 @@
-[gd_scene load_steps=7 format=3 uid="uid://bnx21rfx2c026"]
+[gd_scene load_steps=8 format=3 uid="uid://bnx21rfx2c026"]
 
 [ext_resource type="Script" path="res://Enemy.gd" id="1_ud0gt"]
+[ext_resource type="PackedScene" uid="uid://hy4p6ul3djkf" path="res://Stats.tscn" id="2_qel6i"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_mee1b"]
 albedo_color = Color(0.306446, 0.464897, 0.235137, 1)
@@ -42,5 +43,8 @@ avoidance_enabled = true
 [node name="Timer" type="Timer" parent="."]
 autostart = true
 
+[node name="Stats" parent="." instance=ExtResource("2_qel6i")]
+
 [connection signal="velocity_computed" from="NavigationAgent" to="." method="_on_navigation_agent_velocity_computed"]
 [connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]
+[connection signal="you_died_signal" from="Stats" to="." method="_on_stats_you_died_signal"]

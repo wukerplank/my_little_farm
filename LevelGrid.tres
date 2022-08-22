@@ -1,0 +1,10 @@
+[gd_resource type="StandardMaterial3D" load_steps=2 format=3 uid="uid://berjf0a63f6ml"]
+
+[ext_resource type="Texture2D" uid="uid://uplt7p41sgjp" path="res://ground-grid.png" id="1_cbylw"]
+
+[resource]
+albedo_texture = ExtResource("1_cbylw")
+roughness = 0.3
+uv1_scale = Vector3(0.5, 0.5, 0.5)
+uv1_triplanar = true
+uv1_world_triplanar = true
