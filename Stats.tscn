@@ -4,3 +4,4 @@
 
 [node name="Stats" type="Node"]
 script = ExtResource("1_5c4lo")
+max_hit_points = null

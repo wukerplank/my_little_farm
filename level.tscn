@@ -1,9 +1,11 @@
-[gd_scene load_steps=7 format=3 uid="uid://3ovekprw4lpg"]
+[gd_scene load_steps=9 format=3 uid="uid://3ovekprw4lpg"]
 
 [ext_resource type="Script" path="res://main.gd" id="1_17tqw"]
 [ext_resource type="PackedScene" uid="uid://3pyoddi7wvtl" path="res://Player.tscn" id="2_o4unc"]
 [ext_resource type="Material" uid="uid://berjf0a63f6ml" path="res://LevelGrid.tres" id="4_ex1lc"]
 [ext_resource type="PackedScene" uid="uid://bnx21rfx2c026" path="res://Enemy.tscn" id="5_h66oa"]
+[ext_resource type="Script" path="res://Spawner.gd" id="5_tsm0c"]
+[ext_resource type="Script" path="res://Wave.gd" id="6_drcsy"]
 
 [sub_resource type="NavigationMesh" id="NavigationMesh_ytvor"]
 vertices = PackedVector3Array(-2.54086, 0.382896, 8.94513, -2.54086, 0.382896, 6.19513, -3.54086, 0.382896, 6.19513, -6.04086, 0.382896, -6.05487, -5.04086, 0.382896, -6.05487, -5.04086, 0.382896, -9.05487, -4.29086, 0.382896, 1.69513, -3.29086, 0.382896, 0.945129, -4.04086, 0.382896, -1.55487, -6.04086, 0.382896, -1.30487, -4.29086, 0.382896, 1.69513, -6.04086, 0.382896, -1.30487, -6.79086, 0.382896, -2.05487, -9.04086, 0.382896, -0.0548706, -9.04086, 0.382896, 8.94513, -4.29086, 0.382896, 5.44513, -2.54086, 0.382896, 8.94513, -3.54086, 0.382896, 6.19513, -4.29086, 0.382896, 5.44513, -9.04086, 0.382896, 8.94513, -6.79086, 0.382896, -5.30487, -6.04086, 0.382896, -6.05487, -5.04086, 0.382896, -9.05487, -9.04086, 0.382896, -9.05487, -6.79086, 0.382896, -5.30487, -9.04086, 0.382896, -9.05487, -9.04086, 0.382896, -0.0548706, -6.79086, 0.382896, -2.05487, -3.54086, 0.382896, -2.05487, -4.04086, 0.382896, -1.55487, -3.29086, 0.382896, 0.945129, -5.04086, 0.382896, -9.05487, -5.04086, 0.382896, -6.05487, -4.29086, 0.382896, -6.05487, 3.20914, 0.382896, 0.945129, 3.70914, 0.382896, -2.05487, 2.70914, 0.382896, -2.80487, -3.54086, 0.382896, -5.30487, -3.54086, 0.382896, -2.05487, -3.29086, 0.382896, 0.945129, -5.04086, 0.382896, -9.05487, -4.29086, 0.382896, -6.05487, -3.54086, 0.382896, -5.30487, 2.70914, 0.382896, -2.80487, 2.70914, 0.382896, -4.55487, 1.95914, 0.382896, -9.05487, 2.70914, 0.382896, -4.55487, 3.45914, 0.382896, -5.30487, 1.95914, 0.382896, -9.05487, 3.45914, 0.382896, -5.30487, 8.95914, 0.382896, -5.30487, 8.95914, 0.382896, -9.05487, 1.95914, 0.382896, -9.05487, 3.70914, 0.382896, -2.05487, 3.20914, 0.382896, 0.945129, 4.20914, 0.382896, 1.69513, 8.95914, 0.382896, 3.44513, 8.95914, 0.382896, -2.05487, 4.20914, 0.382896, 2.94513, 3.70914, 0.382896, 3.44513, 8.95914, 0.382896, 3.44513, 4.20914, 0.382896, 1.69513, 4.20914, 0.382896, 2.94513, 8.95914, 0.382896, 3.44513, -1.79086, 0.382896, 6.19513, -2.54086, 0.382896, 6.19513, -2.54086, 0.382896, 8.94513, -1.04086, 0.382896, 5.44513, -1.79086, 0.382896, 6.19513, -2.54086, 0.382896, 8.94513, 8.95914, 0.382896, 8.94513, 8.95914, 0.382896, 3.44513, 3.70914, 0.382896, 3.44513, 3.70914, 0.382896, 3.44513, -1.04086, 0.382896, 3.69513, -1.04086, 0.382896, 5.44513)
@@ -35,14 +37,8 @@ shadow_normal_bias = 0.0
 directional_shadow_fade_start = 0.687
 directional_shadow_max_distance = 30.0
 
-[node name="Enemy" parent="." instance=ExtResource("5_h66oa")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5.70741, 1.8999e-07, 5.69286)
-
-[node name="Enemy2" parent="." instance=ExtResource("5_h66oa")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5.48734, 1.8999e-07, 5.63303)
-
 [node name="Navigation" type="NavigationRegion3D" parent="."]
-transform = Transform3D(1, -2.67733e-11, -1.16415e-10, -8.19057e-10, 1, 0.000733039, 0, -0.000733039, 1, -0.0112423, -0.0220293, 0.00494122)
+transform = Transform3D(1, 4.38433e-10, -4.65661e-10, -1.51755e-09, 1, 0.00073304, 0, -0.000733039, 1, -0.0104958, -0.0100003, -0.00474899)
 navmesh = SubResource("NavigationMesh_ytvor")
 
 [node name="Ground" type="CSGBox3D" parent="Navigation"]
@@ -72,3 +68,25 @@ transform = Transform3D(-0.00086538, 0.000608593, -2.50101, -0.000822728, 1.5522
 material_override = SubResource("StandardMaterial3D_q4fu6")
 use_collision = true
 size = Vector3(0.630695, 1, 2.5)
+
+[node name="Spawner" type="Node3D" parent="."]
+script = ExtResource("5_tsm0c")
+enemy = ExtResource("5_h66oa")
+
+[node name="Timer" type="Timer" parent="Spawner"]
+
+[node name="Waves" type="Node" parent="Spawner"]
+
+[node name="Wave" type="Node" parent="Spawner/Waves"]
+script = ExtResource("6_drcsy")
+
+[node name="Wave2" type="Node" parent="Spawner/Waves"]
+script = ExtResource("6_drcsy")
+num_enemies = 5
+
+[node name="Wave3" type="Node" parent="Spawner/Waves"]
+script = ExtResource("6_drcsy")
+num_enemies = 50
+num_seconds_spawns = 0.2
+
+[connection signal="timeout" from="Spawner/Timer" to="Spawner" method="_on_timer_timeout"]

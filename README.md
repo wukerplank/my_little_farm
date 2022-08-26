@@ -18,3 +18,4 @@ Little project to explore Godot 4.
   - [Make a 3D Top Down Shooter with Godot - Part 1.4 Killing Enemies](https://www.youtube.com/watch?v=kewj-_5URnI)
     - Pretty straight forward, the `signal` didn't show up in the UI at first but eventually the parser caught up. When editing the material, the Flags section is gone. To get to the "World Triplanar", it's right in the UV1 section.
   - [Make a 3D Top Down Shooter with Godot - Part 1.5 Spawning Waves](https://www.youtube.com/watch?v=e7XyaROA4cM)
+    - Only issue was the syntax change for connecting signals, which is less stringly now and could even take a closure: `stats.connect("you_died_signal", self._on_enemy_stats_you_died_signal)`

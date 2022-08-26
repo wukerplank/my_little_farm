@@ -9,12 +9,24 @@
 config_version=5
 
 _global_script_classes=[{
+"base": "CharacterBody3D",
+"class": &"Enemy",
+"language": &"GDScript",
+"path": "res://Enemy.gd"
+}, {
+"base": "Node",
+"class": &"EnemyWave",
+"language": &"GDScript",
+"path": "res://Wave.gd"
+}, {
 "base": "Node",
 "class": &"Stats",
 "language": &"GDScript",
 "path": "res://Stats.gd"
 }]
 _global_script_class_icons={
+"Enemy": "",
+"EnemyWave": "",
 "Stats": ""
 }
 

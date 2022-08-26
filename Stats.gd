@@ -19,7 +19,7 @@ func _process(delta):
 
 func take_hit(damage : int):
 	current_hit_points -= damage
-	print("I'm hit! ", current_hit_points, "/", max_hit_points)
+#	print("I'm hit! ", current_hit_points, "/", max_hit_points)
 	
 	if current_hit_points <= 0:
 		die()
