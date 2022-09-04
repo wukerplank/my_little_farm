@@ -26,5 +26,5 @@ func _process(delta):
 
 	move_and_slide()
 	
-	if Input.is_action_just_pressed("primary_action"):
+	if Input.is_action_pressed("primary_action"):
 		gun_controller.shoot()
