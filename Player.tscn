@@ -14,6 +14,7 @@ albedo_color = Color(0.580392, 0.0431373, 0.14902, 1)
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_tsbte"]
 
 [node name="Player" type="CharacterBody3D"]
+collision_layer = 2
 script = ExtResource("1_q2qap")
 metadata/_edit_group_ = true
 

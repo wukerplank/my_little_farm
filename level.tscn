@@ -79,14 +79,12 @@ enemy = ExtResource("5_h66oa")
 
 [node name="Wave" type="Node" parent="Spawner/Waves"]
 script = ExtResource("6_drcsy")
-
-[node name="Wave2" type="Node" parent="Spawner/Waves"]
-script = ExtResource("6_drcsy")
-num_enemies = 5
+num_enemies = 2
+num_seconds_spawns = 1.0
 
 [node name="Wave3" type="Node" parent="Spawner/Waves"]
 script = ExtResource("6_drcsy")
-num_enemies = 50
+num_enemies = 20
 num_seconds_spawns = 0.2
 
 [connection signal="timeout" from="Spawner/Timer" to="Spawner" method="_on_timer_timeout"]
