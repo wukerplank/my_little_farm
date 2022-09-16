@@ -2,7 +2,7 @@ extends Node
 
 
 @export var StartingWeapon : PackedScene
-var hand : Position3D
+var hand : Marker3D
 var equipped_weapon : Node
 
 # Called when the node enters the scene tree for the first time.

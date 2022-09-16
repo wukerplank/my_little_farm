@@ -28,7 +28,7 @@ transform = Transform3D(0.7, 0, 0, 0, -8.74228e-09, 0.3, 0, -0.2, -1.31134e-08, 
 mesh = SubResource("CylinderMesh_tv0l4")
 skeleton = NodePath("../..")
 
-[node name="Hand" type="Position3D" parent="Body"]
+[node name="Hand" type="Marker3D" parent="Body"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.515615, 0, -0.282145)
 
 [node name="GunController" type="Node" parent="."]

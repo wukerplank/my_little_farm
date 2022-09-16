@@ -29,7 +29,7 @@ transform = Transform3D(0.7, 0, 0, 0, -8.74228e-09, 0.3, 0, -0.2, -1.31134e-08, 
 mesh = SubResource("CylinderMesh_mg60x")
 skeleton = NodePath("../..")
 
-[node name="Hand" type="Position3D" parent="Body"]
+[node name="Hand" type="Marker3D" parent="Body"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.515615, 0, -0.282145)
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
@@ -40,6 +40,7 @@ shape = SubResource("CapsuleShape3D_xvbfs")
 path_max_distance = 20.0
 avoidance_enabled = true
 radius = 0.5
+max_neighbors = 100
 
 [node name="PathUpdateTimer" type="Timer" parent="."]
 autostart = true

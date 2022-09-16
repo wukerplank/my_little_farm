@@ -16,7 +16,7 @@ transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 0, -0.
 script = ExtResource("1_3ve8k")
 bullet = ExtResource("2_p1wwq")
 
-[node name="Muzzle" type="Position3D" parent="."]
+[node name="Muzzle" type="Marker3D" parent="."]
 transform = Transform3D(0.000629439, 0.000617695, -1, 0.000819861, 1, 0.000618204, 0.999999, -0.000820245, 0.000628939, -0.442556, 0.626637, -0.00273512)
 
 [node name="Barrell" type="MeshInstance3D" parent="."]
