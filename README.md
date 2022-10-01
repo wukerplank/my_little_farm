@@ -23,3 +23,5 @@ Little project to explore Godot 4.
     - Minor hickups due to renamed methods in Godot (e.g. `set_surface_material` -> `set_surface_override_material`)
   - [Make a 3D Top Down Shooter with Godot - Part 1.7 Player Death](https://www.youtube.com/watch?v=a2J_9fco7xE)
   - [Make a 3D Top Down Shooter with Godot - Part 1.8 Loose Ends](https://www.youtube.com/watch?v=XUu9o8ddCZw)
+  - [Make a 3D Top Down Shooter with Godot - Part 2.1 A Basic Level Generation Tool](https://www.youtube.com/watch?v=WjThx-Bdn5g)
+    - I had to make a few tweaks to my materials and basic ground and obstacle shapes to get the same results as AoA.

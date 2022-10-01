@@ -1,8 +1,9 @@
-[gd_scene load_steps=9 format=3]
+[gd_scene load_steps=10 format=3 uid="uid://dmf8y3ce2i4qb"]
 
 [ext_resource type="Script" path="res://main.gd" id="1_17tqw"]
 [ext_resource type="PackedScene" path="res://Player/Player.tscn" id="2_o4unc"]
-[ext_resource type="Material" path="res://Level/LevelGrid.tres" id="4_ex1lc"]
+[ext_resource type="PackedScene" uid="uid://bfhlnwqtu1dyw" path="res://LevelGenerator/Ground.tscn" id="3_g4tm2"]
+[ext_resource type="PackedScene" uid="uid://doi2kjg4y72e2" path="res://LevelGenerator/Obstacle.tscn" id="4_bobeg"]
 [ext_resource type="PackedScene" uid="uid://bowrpr20qwkx5" path="res://Enemy/Enemy.tscn" id="5_h66oa"]
 [ext_resource type="Script" path="res://Spawning/Spawner.gd" id="5_tsm0c"]
 [ext_resource type="Script" path="res://Spawning/Wave.gd" id="6_drcsy"]
@@ -41,17 +42,9 @@ directional_shadow_max_distance = 30.0
 transform = Transform3D(1, 4.38433e-10, -4.65661e-10, -1.51755e-09, 1, 0.00073304, 0, -0.000733039, 1, -0.0104958, -0.0100003, -0.00474899)
 navmesh = SubResource("NavigationMesh_ytvor")
 
-[node name="Ground" type="CSGBox3D" parent="Navigation"]
-transform = Transform3D(0.999996, 0.00137622, -0.00234642, -0.00137545, 1, 0.000331524, 0.00234687, -0.00032831, 0.999998, 0, -0.05, 0)
-material_override = ExtResource("4_ex1lc")
-use_collision = true
-collision_layer = 9
-size = Vector3(20.0346, 0.1, 20.0627)
+[node name="Ground" parent="Navigation" instance=ExtResource("3_g4tm2")]
 
-[node name="Obstacle1" type="CSGBox3D" parent="Navigation"]
-transform = Transform3D(1, 0, 0, 0, 1.55224, 0, 0, 0, 2.5, -5.20796, 0.750867, -3.61215)
-material_override = SubResource("StandardMaterial3D_q4fu6")
-use_collision = true
+[node name="Obstacle1" parent="Navigation" instance=ExtResource("4_bobeg")]
 
 [node name="Obstacle2" type="CSGBox3D" parent="Navigation"]
 transform = Transform3D(1, 0, 0, 0, 1.55224, 0, 0, 0, 2.5, -2.64534, 0.750867, 3.86355)
