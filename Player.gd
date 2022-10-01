@@ -28,3 +28,7 @@ func _process(delta):
 	
 	if Input.is_action_pressed("primary_action"):
 		gun_controller.shoot()
+
+
+func _on_stats_you_died_signal():
+	queue_free()

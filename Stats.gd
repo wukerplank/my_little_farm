@@ -10,7 +10,7 @@ signal you_died_signal
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	pass # Replace with function body.
+	current_hit_points = max_hit_points
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.

@@ -21,3 +21,4 @@ Little project to explore Godot 4.
     - Only issue was the syntax change for connecting signals, which is less stringly now and could even take a closure: `stats.connect("you_died_signal", self._on_enemy_stats_you_died_signal)`
   - [Make a 3D Top Down Shooter with Godot - Part 1.6 Enemy Attacks](https://www.youtube.com/watch?v=JZs9PZNfGqs)
     - Minor hickups due to renamed methods in Godot (e.g. `set_surface_material` -> `set_surface_override_material`)
+  - [Make a 3D Top Down Shooter with Godot - Part 1.7 Player Death](https://www.youtube.com/watch?v=a2J_9fco7xE)

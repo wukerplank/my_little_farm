@@ -36,16 +36,24 @@ func _ready():
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _physics_process(delta):
+	if !is_instance_valid(player):
+		return
+	
 	update_path(player.global_transform.origin)
 	
 	match current_state:
 		state.SEEKING:
 			$Body.set_surface_override_material(0, default_material)
+			collide_with_other_enemies(true)
 			var next_path_position : Vector3 = navigation_agent.get_next_location()
 			var current_agent_position : Vector3 = global_transform.origin
 			var new_velocity : Vector3 = (next_path_position - current_agent_position).normalized() * movement_speed
 			navigation_agent.set_velocity(new_velocity)
 			look_at(next_path_position)
+			
+			if $AttackRadius.overlaps_body(player):
+				init_attack()
+				
 		state.ATTACKING:
 			$Body.set_surface_override_material(0, attack_material)
 			collide_with_other_enemies(false)
@@ -73,6 +81,8 @@ func update_path(target_position: Vector3):
 
 func _on_path_update_timer_timeout():
 #	print("Looking for player!")
+	if !is_instance_valid(player):
+		return
 	update_path(player.global_transform.origin)
 
 
@@ -93,22 +103,31 @@ func move_and_attack():
 	if distance < 0.5:
 		match current_state:
 			state.ATTACKING:
+				# Do damage to the player
+				var player_stats : Stats = player.get_node("Stats")
+				player_stats.take_hit(1)
+				print("I hit you: ", player_stats.current_hit_points, "/", player_stats.max_hit_points)
+				
+				
 				current_state = state.RETURNING
 				attack_target = return_target
 			state.RETURNING:
 				current_state = state.RESTING
 				attack_timer.start()
+				move_and_slide()
+			state.RESTING:
+				# Make sure to slide a little to prevent overlaps of resting enemies
+				move_and_slide()
 			
 
 func collide_with_other_enemies(should_we_collide : bool):
 	set_collision_mask_value(2, should_we_collide)
 
-func _on_AttackRadius_body_entered(body):
+func init_attack():
 	# print("Something entered my attack radius ", body)
-	if body == player:
-		attack_target = player.global_transform.origin
-		return_target = global_transform.origin
-		current_state = state.ATTACKING
+	attack_target = player.global_transform.origin
+	return_target = global_transform.origin
+	current_state = state.ATTACKING
 
 func _on_attack_timer_timeout():
 	current_state = state.SEEKING
