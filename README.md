@@ -4,7 +4,7 @@ Little project to explore Godot 4.
 
 ## Current State
 
-![Screenshot of the current state of the project.](progress_documentation/2022-09-04/01.png?raw=true)
+![Screenshot of the current state of the project.](progress_documentation/2022-10-01/01.png?raw=true)
 
 
 
@@ -25,3 +25,12 @@ Little project to explore Godot 4.
   - [Make a 3D Top Down Shooter with Godot - Part 1.8 Loose Ends](https://www.youtube.com/watch?v=XUu9o8ddCZw)
   - [Make a 3D Top Down Shooter with Godot - Part 2.1 A Basic Level Generation Tool](https://www.youtube.com/watch?v=WjThx-Bdn5g)
     - I had to make a few tweaks to my materials and basic ground and obstacle shapes to get the same results as AoA.
+  - [Make a 3D Top Down Shooter with Godot - Part 2.2 Randomization](https://www.youtube.com/watch?v=TIWUUgmc3nQ)
+  - [Make a 3D Top Down Shooter with Godot - Part 2.3 Color Variations](https://www.youtube.com/watch?v=6uWM7tywBVU) + [Godot Spatial Shaders - A Gentle Introduction](https://www.youtube.com/watch?v=edITKOiqpHE)
+    - Bumped in to a few renames:
+      - `SpatialMaterial` is now `StandardMaterial3D`
+      - `linear_interpolate` is `lerp`
+      - In the shader the `world` is now called `model_matrix`
+      - Also `set_shader_param` is now `set_shader_parameter`
+
+- When looking up changes from Godot 3.* to 4, I found [this script](https://gist.github.com/aaronfranke/79b424226475d277d0035b7835b09c5f) by [aaronfranke](https://github.com/aaronfranke) extremely helpful.

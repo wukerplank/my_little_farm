@@ -1,12 +1,8 @@
 [gd_scene load_steps=2 format=3 uid="uid://doi2kjg4y72e2"]
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_q4fu6"]
-albedo_color = Color(0.634944, 0.415139, 0.748043, 1)
-metallic = 1.0
-roughness = 0.24
+[ext_resource type="Material" uid="uid://cdo5niiey0e7u" path="res://LevelGenerator/ObstacleShader.tres" id="1_4wctf"]
 
 [node name="Obstacle" type="CSGBox3D"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.25, 0)
-material_override = SubResource("StandardMaterial3D_q4fu6")
 use_collision = true
 size = Vector3(2, 2.5, 2)
+material = ExtResource("1_4wctf")

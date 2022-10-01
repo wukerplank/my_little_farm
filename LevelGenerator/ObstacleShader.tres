@@ -1,0 +1,10 @@
+[gd_resource type="ShaderMaterial" load_steps=2 format=3 uid="uid://cdo5niiey0e7u"]
+
+[ext_resource type="Shader" uid="uid://gimdlemafhte" path="res://LevelGenerator/Obstacle.tres" id="1_qei8r"]
+
+[resource]
+render_priority = 0
+shader = ExtResource("1_qei8r")
+shader_parameter/backgroundColor = Color(0.960784, 0.533333, 0.67451, 1)
+shader_parameter/depth = 11.0
+shader_parameter/foregroundColor = Color(0.65098, 0.784314, 0.984314, 1)

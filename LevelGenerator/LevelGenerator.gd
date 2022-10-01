@@ -31,12 +31,23 @@ extends Node
 		obstacle_max_height = max(value, obstacle_min_height)
 		generate_map()
 
+@export var foreground_color : Color:
+	set(value):
+		foreground_color = value
+		generate_map()
+
+@export var background_color : Color:
+	set(value):
+		background_color = value
+		generate_map()
+
 @export var rng_seed = 12345:
 	set(value):
 		rng_seed = value
 		generate_map()
 
 var map_coords := []
+var shader_material : ShaderMaterial
 
 class Coord:
 	var x: int
@@ -74,6 +85,7 @@ func generate_map():
 	
 	clear_map()
 	add_ground()
+	update_obstacle_material()
 	add_obstacles()
 
 func clear_map():
@@ -85,6 +97,14 @@ func add_ground():
 	ground.size.x = map_width * 2
 	ground.size.z = map_depth * 2
 	add_child(ground)
+
+func update_obstacle_material():
+	var temp_obstacle: CSGBox3D = ObstacleScene.instantiate()
+	shader_material = temp_obstacle.material as ShaderMaterial
+	shader_material.set_shader_parameter("foregroundColor", foreground_color)
+	shader_material.set_shader_parameter("backgroundColor", background_color)
+	shader_material.set_shader_parameter("depth", map_depth * 2)
+	print(shader_material)
 
 func add_obstacles():
 	fill_map_coords()
@@ -107,7 +127,15 @@ func create_obstacle_at(x: int, z: int):
 	var new_obstacle : CSGBox3D = ObstacleScene.instantiate()
 	new_obstacle.transform.origin = obstacle_position
 	new_obstacle.size.y = height
+	
+	new_obstacle.material = shader_material
+	
 	add_child(new_obstacle)
 
 func set_obstacle_height() -> float :
 	return randf_range(obstacle_min_height, obstacle_max_height)
+
+#func create_material(z: float) -> StandardMaterial3D:
+#	var material := StandardMaterial3D.new()
+#	material.albedo_color = background_color.lerp(foreground_color, float(z)/float(map_depth))
+#	return material
