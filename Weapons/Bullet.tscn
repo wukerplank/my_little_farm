@@ -1,6 +1,6 @@
-[gd_scene load_steps=5 format=3 uid="uid://cev4gpe2f8e5n"]
+[gd_scene load_steps=5 format=3]
 
-[ext_resource type="Script" path="res://Bullet.gd" id="1_3fhtl"]
+[ext_resource type="Script" path="res://Weapons/Bullet.gd" id="1_3fhtl"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_4kwi5"]
 albedo_color = Color(1, 0.882667, 0.56, 1)
@@ -10,8 +10,7 @@ roughness = 0.1
 
 [sub_resource type="SphereMesh" id="SphereMesh_svlwn"]
 
-[sub_resource type="SphereShape3D" id="SphereShape3D_66pw8"]
-radius = 0.0744295
+[sub_resource type="SphereShape3D" id="SphereShape3D_2rpj0"]
 
 [node name="Bullet" type="Node3D"]
 script = ExtResource("1_3fhtl")
@@ -25,6 +24,7 @@ mesh = SubResource("SphereMesh_svlwn")
 collision_mask = 5
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Area3D"]
-shape = SubResource("SphereShape3D_66pw8")
+transform = Transform3D(0.15, 0, 0, 0, 0.15, 0, 0, 0, 1, 0, 0, 0)
+shape = SubResource("SphereShape3D_2rpj0")
 
 [connection signal="body_entered" from="Area3D" to="." method="_on_area_3d_body_entered"]

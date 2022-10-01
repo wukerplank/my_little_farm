@@ -1,7 +1,7 @@
-[gd_scene load_steps=8 format=3 uid="uid://bnx21rfx2c026"]
+[gd_scene load_steps=8 format=3 uid="uid://bowrpr20qwkx5"]
 
-[ext_resource type="Script" path="res://Enemy.gd" id="1_ud0gt"]
-[ext_resource type="PackedScene" uid="uid://hy4p6ul3djkf" path="res://Stats.tscn" id="2_qel6i"]
+[ext_resource type="Script" path="res://Enemy/Enemy.gd" id="1_vbu2e"]
+[ext_resource type="PackedScene" path="res://Stats.tscn" id="2_hc5pf"]
 
 [sub_resource type="CapsuleMesh" id="CapsuleMesh_w4tdc"]
 
@@ -17,7 +17,7 @@ albedo_color = Color(0.580392, 0.0431373, 0.14902, 1)
 [node name="Enemy" type="CharacterBody3D"]
 collision_layer = 4
 collision_mask = 5
-script = ExtResource("1_ud0gt")
+script = ExtResource("1_vbu2e")
 
 [node name="Body" type="MeshInstance3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
@@ -45,7 +45,7 @@ max_neighbors = 100
 [node name="PathUpdateTimer" type="Timer" parent="."]
 autostart = true
 
-[node name="Stats" parent="." instance=ExtResource("2_qel6i")]
+[node name="Stats" parent="." instance=ExtResource("2_hc5pf")]
 max_hit_points = 10
 
 [node name="AttackRadius" type="Area3D" parent="."]

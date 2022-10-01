@@ -12,12 +12,12 @@ _global_script_classes=[{
 "base": "CharacterBody3D",
 "class": &"Enemy",
 "language": &"GDScript",
-"path": "res://Enemy.gd"
+"path": "res://Enemy/Enemy.gd"
 }, {
 "base": "Node",
 "class": &"EnemyWave",
 "language": &"GDScript",
-"path": "res://Wave.gd"
+"path": "res://Spawning/Wave.gd"
 }, {
 "base": "Node",
 "class": &"Stats",
@@ -33,7 +33,7 @@ _global_script_class_icons={
 [application]
 
 config/name="My Little Farm"
-run/main_scene="res://level.tscn"
+run/main_scene="res://Level/level.tscn"
 config/features=PackedStringArray("4.0", "Vulkan Mobile")
 config/icon="res://icon.png"
 
@@ -74,6 +74,7 @@ primary_action={
 3d_physics/layer_1="World"
 3d_physics/layer_2="Player"
 3d_physics/layer_3="Enemy"
+3d_physics/layer_4="Ground"
 
 [rendering]
 

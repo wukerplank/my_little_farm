@@ -3,15 +3,14 @@ extends Node
 class_name Stats
 
 @export var max_hit_points : int = 10
-var current_hit_points : int = max_hit_points
+@onready var current_hit_points : int = max_hit_points
 
 signal you_died_signal
 
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	current_hit_points = max_hit_points
-
+	pass
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):

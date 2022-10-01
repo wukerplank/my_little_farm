@@ -1,8 +1,8 @@
-[gd_scene load_steps=9 format=3 uid="uid://3pyoddi7wvtl"]
+[gd_scene load_steps=9 format=3]
 
-[ext_resource type="Script" path="res://Player.gd" id="1_q2qap"]
-[ext_resource type="Script" path="res://GunController.gd" id="2_qc5gf"]
-[ext_resource type="PackedScene" uid="uid://b5vmn0idjiehr" path="res://gun.tscn" id="3_uw2tg"]
+[ext_resource type="Script" path="res://Player/Player.gd" id="1_q2qap"]
+[ext_resource type="Script" path="res://Weapons/GunController.gd" id="2_qc5gf"]
+[ext_resource type="PackedScene" path="res://Weapons/gun.tscn" id="3_uw2tg"]
 [ext_resource type="PackedScene" uid="uid://hy4p6ul3djkf" path="res://Stats.tscn" id="4_mwfgt"]
 
 [sub_resource type="CapsuleMesh" id="CapsuleMesh_jldcg"]
@@ -30,7 +30,7 @@ mesh = SubResource("CylinderMesh_tv0l4")
 skeleton = NodePath("../..")
 
 [node name="Hand" type="Marker3D" parent="Body"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.515615, 0, -0.282145)
+transform = Transform3D(1.00295, 0, 0, 0, 1.00295, 0, 0, 0, 1.00295, 0.515615, 0, -0.282145)
 
 [node name="GunController" type="Node" parent="."]
 script = ExtResource("2_qc5gf")
