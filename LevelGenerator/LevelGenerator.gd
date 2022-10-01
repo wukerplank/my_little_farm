@@ -20,6 +20,34 @@ extends Node
 	set(value):
 		obstacle_ratio = value
 		generate_map()
+		
+@export_range(1, 5) var obstacle_min_height : float = 1:
+	set(value):
+		obstacle_min_height = min(value, obstacle_max_height)
+		generate_map()
+		
+@export_range(1, 5) var obstacle_max_height : float = 5:
+	set(value):
+		obstacle_max_height = max(value, obstacle_min_height)
+		generate_map()
+
+@export var rng_seed = 12345:
+	set(value):
+		rng_seed = value
+		generate_map()
+
+var map_coords := []
+
+class Coord:
+	var x: int
+	var z: int
+	
+	func _init(x: int, z: int):
+		self.x = x
+		self.z = z
+		
+	func _to_string():
+		return "(x: " + str(x) + ", z: " + str(z) + ")"
 
 func make_odd(old_int, new_int) -> int:
 	if new_int % 2 == 0:
@@ -30,6 +58,12 @@ func make_odd(old_int, new_int) -> int:
 	else:
 		return new_int
 		
+
+func fill_map_coords():
+	map_coords = []
+	for x in range(map_width):
+		for z in range(map_depth):
+			map_coords.append(Coord.new(x, z))
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
@@ -53,11 +87,27 @@ func add_ground():
 	add_child(ground)
 
 func add_obstacles():
-	for x in range(map_width):
-		for z in range(map_depth):
-			if randf() < obstacle_ratio:
-				var obstacle_position = Vector3(x * 2, 0, z * 2)
-				obstacle_position += Vector3(-map_width + 1, 1.25, -map_depth + 1)
-				var new_obstacle : CSGBox3D = ObstacleScene.instantiate()
-				new_obstacle.transform.origin = obstacle_position
-				add_child(new_obstacle)
+	fill_map_coords()
+#	print(map_coords)
+	seed(rng_seed)
+	map_coords.shuffle()
+#	print(map_coords)
+	
+	var num_obstacles = map_coords.size() * obstacle_ratio
+	if num_obstacles == 0:
+		return
+	
+	for coord in map_coords.slice(0, num_obstacles-1):
+		create_obstacle_at(coord.x, coord.z)
+	
+func create_obstacle_at(x: int, z: int):
+	var obstacle_position = Vector3(x * 2, 0, z * 2)
+	var height = set_obstacle_height()
+	obstacle_position += Vector3(-map_width + 1, height / 2, -map_depth + 1)
+	var new_obstacle : CSGBox3D = ObstacleScene.instantiate()
+	new_obstacle.transform.origin = obstacle_position
+	new_obstacle.size.y = height
+	add_child(new_obstacle)
+
+func set_obstacle_height() -> float :
+	return randf_range(obstacle_min_height, obstacle_max_height)
