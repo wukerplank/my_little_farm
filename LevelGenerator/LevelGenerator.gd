@@ -47,6 +47,8 @@ extends Node
 		generate_map()
 
 var map_coords := []
+var map_center : Coord
+var obstacle_map := []
 var shader_material : ShaderMaterial
 
 class Coord:
@@ -59,6 +61,9 @@ class Coord:
 		
 	func _to_string():
 		return "(x: " + str(x) + ", z: " + str(z) + ")"
+
+	func equals(other: Coord) -> bool:
+		return self.x == other.x && self.z == other.z
 
 func make_odd(old_int, new_int) -> int:
 	if new_int % 2 == 0:
@@ -76,6 +81,16 @@ func fill_map_coords():
 		for z in range(map_depth):
 			map_coords.append(Coord.new(x, z))
 
+func fill_obstacle_map():
+	obstacle_map = []
+
+	for x in range(map_width):
+		obstacle_map.append([])
+		for z in range(map_depth):
+			obstacle_map[x].append(false)
+
+	print(obstacle_map)
+
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	generate_map()
@@ -85,6 +100,7 @@ func generate_map():
 	
 	clear_map()
 	add_ground()
+	update_map_center()
 	update_obstacle_material()
 	add_obstacles()
 
@@ -98,6 +114,9 @@ func add_ground():
 	ground.size.z = map_depth * 2
 	add_child(ground)
 
+func update_map_center():
+	map_center = Coord.new(map_width / 2, map_depth / 2)
+
 func update_obstacle_material():
 	var temp_obstacle: CSGBox3D = ObstacleScene.instantiate()
 	shader_material = temp_obstacle.material as ShaderMaterial
@@ -108,18 +127,61 @@ func update_obstacle_material():
 
 func add_obstacles():
 	fill_map_coords()
-#	print(map_coords)
+	fill_obstacle_map()
+
 	seed(rng_seed)
 	map_coords.shuffle()
-#	print(map_coords)
-	
+
 	var num_obstacles = map_coords.size() * obstacle_ratio
+	var current_obstacle_count = 0
+
 	if num_obstacles == 0:
 		return
-	
-	for coord in map_coords.slice(0, num_obstacles-1):
-		create_obstacle_at(coord.x, coord.z)
-	
+
+	for coord in map_coords.slice(0, num_obstacles - 1):
+		if coord.equals(map_center):
+			continue
+
+		current_obstacle_count += 1
+		obstacle_map[coord.x][coord.z] = true
+		if map_is_fully_accessible(current_obstacle_count):
+			create_obstacle_at(coord.x, coord.z)
+		else:
+			current_obstacle_count -= 1
+			obstacle_map[coord.x][coord.z] = false
+
+func map_is_fully_accessible(current_obstacle_count: int) -> bool:
+	var we_already_checked_here = []
+  
+	for x in range(map_width):
+		we_already_checked_here.append([])
+		for z in range(map_depth):
+			we_already_checked_here[x].append(false)
+
+	# map center is always accessible
+	var coords_to_check = [map_center]
+	we_already_checked_here[map_center.x][map_center.z] = true
+	var accessible_tile_count = 1
+  
+	while coords_to_check:
+		var current_tile: Coord = coords_to_check.pop_front()
+		for x in [-1, 0, 1]:
+			for z in [-1, 0, 1]:
+				if x == 0 or z == 0:  # non-diagonal neighbor
+					var neighbor = Coord.new(current_tile.x + x, current_tile.z + z)
+					# Make sure we don't go off map
+					if on_the_map(neighbor):
+						if not we_already_checked_here[neighbor.x][neighbor.z]:
+							if not obstacle_map[neighbor.x][neighbor.z]:
+								we_already_checked_here[neighbor.x][neighbor.z] = true
+								coords_to_check.append(neighbor)
+								accessible_tile_count += 1
+	var target_accessible_tile_count = map_width * map_depth - current_obstacle_count
+	return target_accessible_tile_count == accessible_tile_count
+
+func on_the_map(coord: Coord) -> bool:
+	return coord.x >= 0 and coord.x < map_width and coord.z >= 0 and coord.z < map_depth
+
 func create_obstacle_at(x: int, z: int):
 	var obstacle_position = Vector3(x * 2, 0, z * 2)
 	var height = set_obstacle_height()
@@ -134,8 +196,3 @@ func create_obstacle_at(x: int, z: int):
 
 func set_obstacle_height() -> float :
 	return randf_range(obstacle_min_height, obstacle_max_height)
-
-#func create_material(z: float) -> StandardMaterial3D:
-#	var material := StandardMaterial3D.new()
-#	material.albedo_color = background_color.lerp(foreground_color, float(z)/float(map_depth))
-#	return material
