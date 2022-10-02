@@ -9,56 +9,53 @@ extends Node
 @export_range(1, 19) var map_width : int = 9:
 	set(value):
 		map_width = make_odd(map_width, value)
-		generate_map()
-		
+
 @export_range(1, 19) var map_depth : int = 9:
 	set(value):
 		map_depth = make_odd(map_depth, value)
-		generate_map()
 
 @export_range(0, 1, 0.05) var obstacle_ratio : float = 0.2:
 	set(value):
 		obstacle_ratio = value
-		generate_map()
-		
+
 @export_range(1, 5) var obstacle_min_height : float = 1:
 	set(value):
 		obstacle_min_height = min(value, obstacle_max_height)
-		generate_map()
-		
+
 @export_range(1, 5) var obstacle_max_height : float = 5:
 	set(value):
 		obstacle_max_height = max(value, obstacle_min_height)
-		generate_map()
 
-@export var foreground_color : Color:
-	set(value):
-		foreground_color = value
-		generate_map()
-
-@export var background_color : Color:
-	set(value):
-		background_color = value
-		generate_map()
-
+@export var foreground_color : Color
+@export var background_color : Color
 @export var rng_seed = 12345:
 	set(value):
 		rng_seed = value
 		generate_map()
 
+@export var generate_level: bool = false:
+	set(value):
+		generate_map()
+
+@export var level_name: String = "Untitled"
+@export var save_level_button: bool = false:
+	set(value):
+		save_level()
+
 var map_coords := []
 var map_center : Coord
 var obstacle_map := []
 var shader_material : ShaderMaterial
+var level : Node3D
 
 class Coord:
 	var x: int
 	var z: int
-	
+
 	func _init(x: int, z: int):
 		self.x = x
 		self.z = z
-		
+
 	func _to_string():
 		return "(x: " + str(x) + ", z: " + str(z) + ")"
 
@@ -73,7 +70,7 @@ func make_odd(old_int, new_int) -> int:
 			return new_int - 1
 	else:
 		return new_int
-		
+
 
 func fill_map_coords():
 	map_coords = []
@@ -89,16 +86,15 @@ func fill_obstacle_map():
 		for z in range(map_depth):
 			obstacle_map[x].append(false)
 
-	print(obstacle_map)
-
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
-	generate_map()
+	pass
 
 func generate_map():
 	print("Generating Map")
-	
+
 	clear_map()
+	add_level()
 	add_ground()
 	update_map_center()
 	update_obstacle_material()
@@ -107,12 +103,19 @@ func generate_map():
 func clear_map():
 	for node in get_children():
 		node.queue_free()
-		
+
+func add_level():
+	level = Node3D.new()
+	level.name = "Level"
+	add_child(level)
+	level.owner = self
+
 func add_ground():
 	var ground: CSGBox3D = GroundScene.instantiate()
 	ground.size.x = map_width * 2
 	ground.size.z = map_depth * 2
-	add_child(ground)
+	level.add_child(ground)
+	ground.owner = self
 
 func update_map_center():
 	map_center = Coord.new(map_width / 2, map_depth / 2)
@@ -123,7 +126,6 @@ func update_obstacle_material():
 	shader_material.set_shader_parameter("foregroundColor", foreground_color)
 	shader_material.set_shader_parameter("backgroundColor", background_color)
 	shader_material.set_shader_parameter("depth", map_depth * 2)
-	print(shader_material)
 
 func add_obstacles():
 	fill_map_coords()
@@ -189,10 +191,19 @@ func create_obstacle_at(x: int, z: int):
 	var new_obstacle : CSGBox3D = ObstacleScene.instantiate()
 	new_obstacle.transform.origin = obstacle_position
 	new_obstacle.size.y = height
-	
+
 	new_obstacle.material = shader_material
-	
-	add_child(new_obstacle)
+
+	level.add_child(new_obstacle)
+	new_obstacle.owner = self
 
 func set_obstacle_height() -> float :
 	return randf_range(obstacle_min_height, obstacle_max_height)
+
+func save_level():
+	var packed_scene = PackedScene.new()
+	for child in level.get_children():
+		child.owner = level
+	packed_scene.pack(level)
+	var scene_resource_path = "res://Level/GeneratedLevel/%s.tscn" % level_name
+	ResourceSaver.save(packed_scene, scene_resource_path)

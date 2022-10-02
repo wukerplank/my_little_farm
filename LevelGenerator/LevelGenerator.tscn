@@ -8,11 +8,16 @@
 script = ExtResource("1_x7pj5")
 GroundScene = ExtResource("2_xyfe6")
 ObstacleScene = ExtResource("3_xaxyb")
-map_width = 19
-map_depth = 17
+map_width = 11
+map_depth = 11
 obstacle_ratio = 0.7
 obstacle_min_height = 1.5
 obstacle_max_height = 3.0
 foreground_color = Color(0.819608, 0.431373, 0.827451, 1)
-background_color = Color(0.388235, 0.698039, 0.12549, 1)
-rng_seed = 777
+background_color = Color(0.72549, 0.784314, 0.960784, 1)
+rng_seed = 888
+generate_level = null
+level_name = "flieder"
+save_level_button = null
+
+[node name="@Level@35923" type="Node3D" parent="."]
