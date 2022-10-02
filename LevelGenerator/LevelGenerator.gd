@@ -31,7 +31,6 @@ extends Node
 @export var rng_seed = 12345:
 	set(value):
 		rng_seed = value
-		generate_map()
 
 @export var generate_level: bool = false:
 	set(value):
@@ -46,7 +45,7 @@ var map_coords := []
 var map_center : Coord
 var obstacle_map := []
 var shader_material : ShaderMaterial
-var level : Node3D
+var level : NavigationRegion3D
 
 class Coord:
 	var x: int
@@ -99,14 +98,16 @@ func generate_map():
 	update_map_center()
 	update_obstacle_material()
 	add_obstacles()
+	level.bake_navigation_mesh()
 
 func clear_map():
 	for node in get_children():
 		node.queue_free()
 
 func add_level():
-	level = Node3D.new()
-	level.name = "Level"
+	level = NavigationRegion3D.new()
+	level.name = "Navigation"
+	level.navmesh = NavigationMesh.new()
 	add_child(level)
 	level.owner = self
 
