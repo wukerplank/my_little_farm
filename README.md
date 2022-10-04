@@ -32,5 +32,7 @@ Little project to explore Godot 4.
       - `linear_interpolate` is `lerp`
       - In the shader the `world` is now called `model_matrix`
       - Also `set_shader_param` is now `set_shader_parameter`
+  - [Make a 3D Top Down Shooter with Godot - Part 2.7 Loose Ends](https://www.youtube.com/watch?v=ht_G3e-NgmM)
+    - I could not follow this refactor ☹️ Godot could not resolve types anymore, would not understand the type hints, etc.
 
 - When looking up changes from Godot 3.* to 4, I found [this script](https://gist.github.com/aaronfranke/79b424226475d277d0035b7835b09c5f) by [aaronfranke](https://github.com/aaronfranke) extremely helpful.
